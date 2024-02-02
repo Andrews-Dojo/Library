@@ -47,6 +47,14 @@ function createTableRow() {
     const authorCell = document.createElement('td');
     const pagesCell = document.createElement('td');
     const readCell = document.createElement('td');
+
+        const readToggleSelect = document.createElement('select');
+        const readToggleRead = document.createElement('option');
+        const readToggleNotRead = document.createElement('option');
+        readToggleRead.value = 'read';
+        readToggleNotRead.value = 'not-read';
+        readToggleRead.innerText = 'Read';
+        readToggleNotRead.innerText = 'Not Read';
     const deleteCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.classList = 'deleteBtn';
@@ -55,12 +63,6 @@ function createTableRow() {
     titleCell.innerText = book.title;
     authorCell.innerText = book.author;
     pagesCell.innerText = book.pages;
-    if (book.read === true) {
-        readCell.innerText = 'Read';
-    } else {
-        readCell.innerText = 'Not Read';
-    }
-    deleteBtn.innerText = 'Delete';
 
     table.appendChild(newRow);
     newRow.appendChild(titleCell);
@@ -69,6 +71,17 @@ function createTableRow() {
     newRow.appendChild(readCell);
     newRow.appendChild(deleteCell);
     deleteCell.appendChild(deleteBtn);
+
+    readCell.appendChild(readToggleSelect);
+    readToggleSelect.appendChild(readToggleRead);
+    readToggleSelect.appendChild(readToggleNotRead);
+
+    if (book.read === true) {
+        readToggleSelect.value = 'read';
+    } else {
+        readToggleSelect.value = 'not-read';
+    }
+    deleteBtn.innerText = 'Delete';
 
     deleteBtn.addEventListener('click', () => {
         table.deleteRow((deleteBtn.id));
