@@ -72,7 +72,7 @@ function createTableRow() {
 
     deleteBtn.addEventListener('click', () => {
         table.deleteRow((deleteBtn.id));
-        myLibrary.splice((deleteBtn.id));
+        myLibrary.splice((deleteBtn.id),1);
     })
     }
    
