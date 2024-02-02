@@ -17,7 +17,7 @@ function addBookToLibrary(){
     
     myLibrary.push(newBook);
     //Display Book in table
-    createTableRow(newBook);
+    createTableRow();
 }
 
 let newBookbtn = document.querySelector('.newBookBtn');
@@ -32,7 +32,14 @@ document.querySelector('#new-book-form').addEventListener('submit', () => {
     addBookToLibrary();
 })
 
-function createTableRow(newBook) {
+function createTableRow() {
+    const table = document.querySelector('.table');
+    if (table) {
+        table.innerHTML = ''; // Clear all rows in tbody
+    }
+    for (i=0;i<myLibrary.length;i++){
+        let book = myLibrary[i];
+        //Loop through library and make rows
     const newRow = document.createElement('tr');
     const titleCell = document.createElement('td');
     const authorCell = document.createElement('td');
@@ -41,11 +48,12 @@ function createTableRow(newBook) {
     const deleteCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.classList = 'deleteBtn';
+    deleteBtn.id = (i+1);
 
-    titleCell.innerText = this.title.value;
-    authorCell.innerText = this.author.value;
-    pagesCell.innerText = this.pages.value;
-    if (this.read.value === true) {
+    titleCell.innerText = book.title;
+    authorCell.innerText = book.author;
+    pagesCell.innerText = book.pages;
+    if (book.read === true) {
         readCell.innerText = 'Read';
     } else {
         readCell.innerText = 'Not Read';
@@ -59,12 +67,13 @@ function createTableRow(newBook) {
     newRow.appendChild(readCell);
     newRow.appendChild(deleteCell);
     deleteCell.appendChild(deleteBtn);
-
-
+    }
 }
 
+
+
+
 // const newBook = document.querySelector('.newBook');
-const table = document.querySelector('.table');
 // // const formDiv = document.querySelector('.formDiv');
 // // const bookList = document.querySelector('.bookList');
 
