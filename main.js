@@ -15,6 +15,7 @@ function addBookToLibrary(){
     let read = document.querySelector('#read').checked;
     let newBook = new Book(title, author, pages, read);
     
+    // Adds book to library array
     myLibrary.push(newBook);
     //Display Book in new table row
     createTableRow();
@@ -32,6 +33,9 @@ document.querySelector('#new-book-form').addEventListener('submit', () => {
     addBookToLibrary();
     let newBookForm = document.querySelector('#new-book-form');
     newBookForm.style.display = 'none';
+    document.querySelector('#title').value = '';
+    document.querySelector('#author').value = '';
+    document.querySelector('#pages').value ='';
 })
 
 function createTableRow() {
@@ -55,6 +59,7 @@ function createTableRow() {
         readToggleNotRead.value = 'not-read';
         readToggleRead.innerText = 'Read';
         readToggleNotRead.innerText = 'Not Read';
+
     const deleteCell = document.createElement('td');
     const deleteBtn = document.createElement('button');
     deleteBtn.classList = 'deleteBtn';
@@ -83,9 +88,11 @@ function createTableRow() {
     }
     deleteBtn.innerText = 'Delete';
 
+    //Doesn't work when mutliple rows are deleted. index doesn't update as array get's shorter.
     deleteBtn.addEventListener('click', () => {
-        table.deleteRow((deleteBtn.id));
-        myLibrary.splice((deleteBtn.id),1);
+        myLibrary.splice(myLibrary[i],1); 
+        table.deleteRow(myLibrary[i]);
+        
     })
     }
    
