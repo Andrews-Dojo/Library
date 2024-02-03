@@ -1,5 +1,7 @@
+// Array of book objects
 const myLibrary = [];
 
+// Book constructor
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -8,7 +10,7 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(){
-    // add stuff here
+    
     let title = document.querySelector('#title').value;
     let author = document.querySelector('#author').value;
     let pages = document.querySelector('#pages').value;
@@ -17,7 +19,8 @@ function addBookToLibrary(){
     
     // Adds book to library array
     myLibrary.push(newBook);
-    //Display Book in new table row
+
+    //Displays Book in new table row
     createTableRow();
 }
 
@@ -40,9 +43,11 @@ document.querySelector('#new-book-form').addEventListener('submit', () => {
 
 function createTableRow() {
     const table = document.querySelector('.table');
+    // Clears all rows in table
     if (table) {
-        table.innerHTML = ''; // Clear all rows in tbody
+        table.innerHTML = ''; 
     }
+
     for (i=0;i<myLibrary.length;i++){
         let book = myLibrary[i];
         //Loop through library and make rows
@@ -81,21 +86,21 @@ function createTableRow() {
     readToggleSelect.appendChild(readToggleRead);
     readToggleSelect.appendChild(readToggleNotRead);
 
-    if (book.read === true) {
-        readToggleSelect.value = 'read';
-    } else {
-        readToggleSelect.value = 'not-read';
-    }
+    readToggleSelect.value = book.read ? 'read' : 'not-read';
+
     deleteBtn.innerText = 'Delete';
 
-    //Doesn't work when mutliple rows are deleted. index doesn't update as array get's shorter.
+    // When delete btns are clicked, that book is removed from library, table row is deleted and new table is created.
+    // Creating new table updates the delete btn indexes, fixing prior bug of not updating. 
     deleteBtn.addEventListener('click', () => {
-        myLibrary.splice(myLibrary[i],1); 
-        table.deleteRow(myLibrary[i]);
-        
-    })
+        myLibrary.splice(deleteBtn.id,1);
+        table.deleteRow(deleteBtn.id);
+        createTableRow();
+    
+})
     }
-   
-}
 
+   
+    
+}
 
